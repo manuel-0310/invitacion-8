@@ -146,6 +146,9 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     emailjs.init("O9TA18-zps7iaEptM");
 })();
 
+const SERVICE_ID  = "service_6m7prwn";
+const TEMPLATE_ID = "template_41pvc6t";
+
 const btn = document.getElementById('button-send');
 
 document.getElementById('rsvp-form').addEventListener('submit', function (event) {
@@ -154,7 +157,7 @@ document.getElementById('rsvp-form').addEventListener('submit', function (event)
     btn.innerText = 'ENVIANDO...';
     btn.style.opacity = '0.7';
 
-    emailjs.sendForm('service_6m7prwn', 'template_41pvc6t', this)
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this)
         .then(() => {
             btn.innerText = '¡ENVIADO CON ÉXITO!';
             btn.style.backgroundColor = '#27ae60';
