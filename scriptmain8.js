@@ -142,12 +142,7 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 /* ============================================================
    EMAILJS — RSVP form
    ============================================================ */
-(function () {
-    emailjs.init("O9TA18-zps7iaEptM");
-})();
-
-const SERVICE_ID  = "service_6m7prwn";
-const TEMPLATE_ID = "template_41pvc6t";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwxEUNZHTgmMnBCYv2E3w_mxN6gNPhya2k_skRIhwxBIIsfSo0XCPc9gu4zG7yYKWcT/exec";
 
 const btn = document.getElementById('button-send');
 
@@ -156,16 +151,40 @@ document.getElementById('rsvp-form').addEventListener('submit', function (event)
 
     btn.innerText = 'ENVIANDO...';
     btn.style.opacity = '0.7';
+    btn.disabled = true;
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this)
-        .then(() => {
+    const payload = {
+        from_name:  this.from_name.value.trim(),
+        last_name:  this.last_name.value.trim(),
+        age:        this.age.value.trim(),
+        attendance: this.attendance.value,
+        allergies:  this.allergies.value.trim() || 'Ninguna',
+    };
+
+    fetch(SHEET_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'ok') {
             btn.innerText = '¡ENVIADO CON ÉXITO!';
             btn.style.backgroundColor = '#27ae60';
+            btn.style.opacity = '1';
             alert('¡Gracias! Tu confirmación ha sido recibida.');
             this.reset();
-        }, (err) => {
-            btn.innerText = 'ERROR AL ENVIAR';
-            btn.style.backgroundColor = '#e74c3c';
-            alert('Hubo un error: ' + JSON.stringify(err));
-        });
+        } else {
+            throw new Error(data.message || 'Error desconocido');
+        }
+    })
+    .catch(err => {
+        btn.innerText = 'ERROR AL ENVIAR';
+        btn.style.backgroundColor = '#e74c3c';
+        btn.style.opacity = '1';
+        alert('Hubo un error: ' + err.message);
+    })
+    .finally(() => {
+        btn.disabled = false;
+    });
 });
