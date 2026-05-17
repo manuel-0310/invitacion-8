@@ -440,28 +440,80 @@ h2.section-title {
     opacity: 0.85;
 }
 
+/* ── NOTA SOLO ADULTOS ── */
+.nota-section {
+    background: var(--cafe-medio);
+    padding: 80px var(--pad);
+    position: relative;
+    overflow: hidden;
+}
+
+.nota-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(201,164,76,0.10) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.nota-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.nota-titulo {
+    font-family: var(--font-script);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    color: #fff;
+    margin: 0 0 20px;
+}
+
+.nota-texto {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.92);
+    text-align: center;
+    margin: 0;
+}
+
 /* ── DRESSCODE ── */
 .dresscode-section {
     background: var(--crema-claro);
     padding: 90px var(--pad);
 }
 
-.dresscode-container { max-width: 620px; margin: 0 auto; }
+.dresscode-container { max-width: 560px; margin: 0 auto; }
 
 .dresscode-intro {
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     font-style: italic;
     font-weight: 500;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
     color: var(--texto);
-    opacity: 0.7;
+    opacity: 0.75;
+}
+
+.dresscode-mensaje {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.8;
+    color: var(--cafe-medio);
+    margin: 0 auto 28px;
+    max-width: 420px;
 }
 
 .dresscode-image {
-    width: 85%;
-    max-width: 520px;
+    width: 55%;
+    max-width: 260px;
     display: block;
-    margin: 0 auto 16px;
+    margin: 0 auto 20px;
 }
 
 .color-reserve {
@@ -470,6 +522,53 @@ h2.section-title {
     font-size: 0.95rem;
     margin-top: 20px;
     letter-spacing: 0.5px;
+}
+
+/* ── COLOR PALETTE ── */
+.colores-label {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--cafe-medio);
+    margin: 24px 0 16px;
+    letter-spacing: 0.5px;
+}
+
+.color-palette {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.palette-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.palette-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+}
+
+.palette-square {
+    width: 58px;
+    height: 58px;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.11);
+}
+
+@media (max-width: 480px) {
+    .palette-circle, .palette-square { width: 48px; height: 48px; }
+    .palette-row { gap: 9px; }
+    .nota-card { padding: 32px 24px; }
 }
 
 .btn-inspiracion {
